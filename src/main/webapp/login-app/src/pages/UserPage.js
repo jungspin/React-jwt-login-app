@@ -1,15 +1,13 @@
 // view 는 page 붙여주는게 나중에 파악하기 좋다
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card } from "react-bootstrap";
-//import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userlogin } from "../store";
+import { useSelector } from "react-redux";
 
 const UserPage = () => {
-  const [loginUser, setLoginUser] = useState({
-    id: "",
-    username: "",
-    email: "",
-    role: "",
-  });
+  const { user } = useSelector((store) => store);
+  const dipatcher = useDispatch((store) => store);
 
   useEffect(() => {
     fetch("http://localhost:8080/user", {
@@ -21,7 +19,7 @@ const UserPage = () => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res.data);
-        setLoginUser(res.data);
+        dipatcher(userlogin(res.data));
       })
       .catch((error) => {
         // then 내부에서 실패하면!! -> 통신과 상관이 없음!!!! 파싱을 실패한다거나~~
@@ -38,12 +36,12 @@ const UserPage = () => {
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>
-              {loginUser.id} {loginUser.username}
+              {user.id} {user.username}
             </Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
-              {loginUser.role}
+              {user.role}
             </Card.Subtitle>
-            <Card.Text>{loginUser.email}</Card.Text>
+            <Card.Text>{user.email}</Card.Text>
           </Card.Body>
         </Card>
       </div>
