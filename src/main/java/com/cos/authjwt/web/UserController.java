@@ -38,6 +38,7 @@ public class UserController {
 		// 데이터 돌려주기
 		User user = userService.findById(principal.getId());
 		user.setPassword(null);
+		System.out.println("user 정보 : " + user);
 		//User user = new User(1, "ssar", "null", "ssar@nate.com", "GUEST");
 		return new ResponseEntity<>(new CMRespDTO<User>(1, "find OK", user ), HttpStatus.OK);
 	}
