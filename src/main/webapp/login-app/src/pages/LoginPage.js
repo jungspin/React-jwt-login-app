@@ -38,6 +38,7 @@ const LoginPage = (props) => {
           console.log("통신성공");
           // 화면 동기화 해야됨
           dispatcher(userlogin(res.data)); // res.data 를 넘겨줘야함. 스프링에서 어떻게 보내는지 보자
+          props.history.push("/");
         } else {
           console.log("통신 실패");
         }
