@@ -26,11 +26,12 @@ public class FilterConfig {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	@Bean // 함수의 리턴값을 IoC 등록할 수 있음 -> 쓰려면 @Configuration 해야됨
-	public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter(){
+	public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter() {
 		System.out.println("JwtAuthenticationFilter 등록됨");
-		FilterRegistrationBean<JwtAuthenticationFilter> bean = new FilterRegistrationBean<JwtAuthenticationFilter>(new JwtAuthenticationFilter(userMapper));
+		FilterRegistrationBean<JwtAuthenticationFilter> bean = new FilterRegistrationBean<JwtAuthenticationFilter>(
+				new JwtAuthenticationFilter(userMapper));
 		bean.addUrlPatterns("/login");
 		bean.setOrder(1); // 낮은 번호부터 실행이 됨
 		return bean;
@@ -45,9 +46,6 @@ public class FilterConfig {
 		bean.setOrder(2);
 		return bean;
 	}
-	
-	
-	
 	
 }
 
